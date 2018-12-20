@@ -1,7 +1,7 @@
 {
   "name": "Nomitami for Twitter",
   "description": "Visible Nomitami",
-  "version": "0.1",
+  "version": "0.2",
   "author": "akinov",
   "permissions": [],
   "icons": {
@@ -21,12 +21,5 @@
       ]
     }
   ],
-  "browser_action": {
-    "default_icon": "images/icon128.png",
-    "default_title": "Messenger Ninja",
-    "matches": [
-      "https://www.messenger.com/*"
-    ]
-  },
   "manifest_version": 2
 }

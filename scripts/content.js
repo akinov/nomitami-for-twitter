@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  var targetNode = document.querySelector('#stream-items-id');
+  var targetNode = document.querySelector('.js-navigable-stream');
 
   var nomitamiTexts = [
     '酒',
@@ -13,29 +13,38 @@
     'ビール',
     '🍺',
     '🍻',
-    '\u1F37A',
-    '\u1F37B'
+    '🍷',
+    '🍾',
+    '🍹',
+    '🍸',
+    '🥃',
+    '🥂'
   ];
 
   var callback = function (mutationsList) {
     for (var mutation of mutationsList) {
       if (mutation.type === 'childList') {
         for (var node of mutation.addedNodes) {
-          var $node = $(node);
-          var text = $('.js-tweet-text', $node).text();
-          var nomitami = false;
-          for (var nomitamiText of nomitamiTexts) {
-            if (text.match(nomitamiText)) {
-              nomitami = true;
-              break;
-            }
-          }
-
-          if (nomitami) {
-            $node.addClass('nomitami');
-          }
+          addNomitami($(node));
         }
       }
+    }
+  };
+
+  function addNomitami($node) {
+    var text = $('.js-tweet-text', $node).html();
+    if (!text) return;
+
+    var nomitami = false;
+    for (var nomitamiText of nomitamiTexts) {
+      if (text.match(nomitamiText)) {
+        nomitami = true;
+        break;
+      }
+    }
+
+    if (nomitami) {
+      $node.addClass('nomitami');
     }
   };
 
@@ -45,6 +54,10 @@
 
   // Start observing the target node for configured mutations
   observer.observe(targetNode, config);
+
+  $('.js-stream-item').each(function(index, element){
+    addNomitami($(element));
+  });
 
 
   // styleを直書き
